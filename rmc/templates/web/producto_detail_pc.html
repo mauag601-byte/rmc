@@ -1,0 +1,19 @@
+<!-- producto_detail.html -->
+{% extends "templates/web/navbar.html" %}
+
+{% block content %}
+<h1>{{ producto.title }}</h1>
+<p>{{ producto.description }}</p>
+<p>Precio: ${{ producto.price }}</p>
+
+<!-- Formulario para agregar el producto al carrito -->
+<form action="{% url 'agregar_al_carrito' producto.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Agregar al carrito</button>
+</form>
+
+<!-- Botón para ir directamente al carrito -->
+<a href="{% url 'ver_carrito' %}" class="btn btn-primary">Ver carrito</a>
+
+
+{% endblock %}

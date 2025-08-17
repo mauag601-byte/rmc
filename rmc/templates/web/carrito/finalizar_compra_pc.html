@@ -1,0 +1,48 @@
+{% extends 'templates/web/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Finalizar Compra</h2>
+
+    {% if carrito_items %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Total</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in carrito_items %}
+                    <tr>
+                        <td>{{ item.nombre }}</td>  <!-- 'nombre' es el campo en la sesión para el título del producto -->
+                        <td>${{ item.precio }}</td>  <!-- 'precio' es el precio del producto -->
+                        <td>${{ item.precio }}</td>  <!-- Total es igual al precio en este caso -->
+                        <td>
+                            <!-- Formulario para eliminar el producto -->
+                            <form method="POST" action="{% url 'finalizar_compra_pc' %}" class="d-inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="remove_product_id" value="{{ item.id }}">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-end">
+            <h3>Total: ${{ total }}</h3>
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success mt-3">Confirmar Compra</button>
+            </form>
+        </div>
+
+    {% else %}
+        <p class="text-center">Selecciona tus componentes.</p>
+    {% endif %}
+</div>
+{% endblock %}

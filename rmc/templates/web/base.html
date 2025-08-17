@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>homero si baila</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Carga del archivo CSS del fondo -->
+        <link rel="stylesheet" href="{% static 'web/css/fondo.css' %}">
+        
+        <!-- Carga de otros archivos CSS -->
+        <link rel="stylesheet" href="{% static 'web/css/style.css' %}">
+    </head>
+    <body>
+        {% include 'templates/web/navbar.html' %}
+        {% block content %}{% endblock %}
+        
+        <script src="" async defer></script>
+    </body>
+</html>
+

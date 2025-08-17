@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armá tu PC</title>
+    <!-- Enlace a Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Estilos adicionales -->
+    <link rel="stylesheet" href="{% static 'web/css/style.css' %}">
+    <!-- Font Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    {% include 'templates/web/navbar.html' %}
+    {% block content %}
+    <!-- Banner superior -->
+    <div class="top-banner">
+        <h1 class="banner-title text-center">Armá tu PC</h1>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Panel de categorías -->
+            <aside class="col-md-3 category-panel">
+                <h2>Categorías</h2>
+                <ul class="list-unstyled">
+                    <li><a href="?categoria=procesadores" class="btn btn-link"><i class="fas fa-microchip"></i> Procesador</a></li>
+                    <li><a href="?categoria=placas_madre" class="btn btn-link"><i class="fas fa-desktop"></i> Placa Madre</a></li>
+                    <li><a href="?categoria=memoria_ram" class="btn btn-link"><i class="fas fa-memory"></i> Memoria RAM</a></li>
+                    <li><a href="?categoria=tarjeta_grafica" class="btn btn-link"><i class="fas fa-video"></i> Tarjeta Gráfica</a></li>
+                    <li><a href="?categoria=almacenamiento" class="btn btn-link"><i class="fas fa-hdd"></i> Almacenamiento</a></li>
+                    <li><a href="?categoria=fuente_poder" class="btn btn-link"><i class="fas fa-bolt"></i> Fuente de Poder</a></li>
+                    <li><a href="?categoria=gabinete" class="btn btn-link"><i class="fas fa-cube"></i> Gabinete</a></li>
+                    <li><a href="?categoria=monitor" class="btn btn-link"><i class="fas fa-tv"></i> Monitor</a></li>
+
+                    <li><a href="?categoria=coolers" class="btn btn-link"><i class="fas fa-fan"></i> Coolers</a></li>
+                </ul>
+            </aside>
+
+            <!-- Panel de productos -->
+            <section class="col-md-9 product-panel">
+                <div class="row">
+                    {% for producto in productos %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                <img src="{{ Producto.imagen.url }}" class="card-img-top" alt="{{ producto.title }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ producto.title }}</h5>
+                                    <p class="card-text"><strong>Precio:</strong> ${{ producto.price }}</p>
+                                    
+                                    <form action="{% url 'agregar_al_ensamblado' producto.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-success">Agregar</button>
+                                        <a href="{% url 'detalle_producto_pc' producto.id %}" class="btn btn-primary">Ver Detalles</a>
+                                    </form>
+                                    
+                                    {% if not producto.compatibilidad %}
+                                        <div class="alert alert-danger mt-2" role="alert">
+                                            Este producto no es compatible.
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p>No hay productos en esta categoría.</p>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+
+        <!-- Panel de resumen del ensamblado -->
+        <div class="mt-5">
+            <h3>Componentes Seleccionados</h3>
+            <ul>
+                {% for item in ensamblado %}
+                    <li>{{ item.nombre }} - ${{ item.precio }}</li>
+                {% endfor %}
+            </ul>
+            <p><strong>Total:</strong> ${{ total }}</p>
+            <a href="{% url 'finalizar_compra_pc' %}" class="btn btn-success mt-3">Finalizar Compra</a>
+        </div>
+    </div>
+    {% endblock %}
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

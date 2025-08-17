@@ -1,0 +1,58 @@
+{% extends 'templates/web/base.html' %}
+
+{% block content %}
+
+<!-- Banner Principal -->
+<section class="bg-primary text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-4">Bienvenido a RMC</h1>
+        <p class="lead">Aquí puedes armar tu propia computadora eligiendo los componentes que más te gusten.</p>
+        <a href="{% url 'products' %}" class="btn btn-light btn-lg mt-3">Ver Productos</a>
+    </div>
+</section>
+
+<!-- Sección de CTA (Armar tu PC) -->
+<section class="py-5 bg-light text-center">
+    <div class="container">
+        <h2>Arma tu Computadora Ideal</h2>
+        <p class="lead">Explora nuestros componentes y crea una computadora personalizada a tu medida.</p>
+        <a href="{% url 'armar_pc' %}" class="btn btn-primary btn-lg">Empieza Ahora</a>
+    </div>
+</section>
+
+
+<!-- Sección de Características -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <h4 class="card-title">Componentes de Calidad</h4>
+                        <p class="card-text">Trabajamos con marcas confiables y productos con garantía.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <h4 class="card-title">Envíos Nacionales</h4>
+                        <p class="card-text">Hacemos envíos a cualquier parte del país.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <h4 class="card-title">Ayuda y Soporte</h4>
+                        <p class="card-text">Asesoramos en el armado y dudas técnicas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

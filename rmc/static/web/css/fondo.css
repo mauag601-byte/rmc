@@ -1,0 +1,7 @@
+body {
+    background-image: url("{% static 'img/messifondo.png' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Esto asegura que el fondo cubra toda la altura de la pantalla */
+}
